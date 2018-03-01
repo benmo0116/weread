@@ -64,7 +64,10 @@ public class TestController extends BaseTestController{
         map.put("hello", "hello");
         return "/test";
     }
-
+    @RequestMapping("/rescollect")
+    public String rescollect(HashMap<String, Object> map) {
+        return "/study";
+    }
     @RequestMapping("/interpret")
     public String interpret(HashMap<String, Object> map) {
         return "/interpret";

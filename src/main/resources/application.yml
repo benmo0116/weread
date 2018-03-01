@@ -45,6 +45,11 @@ spring:
         testOnReturn: false
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
+    #ehcache配置
+    cache:
+        type: ehcache
+        ehcache:
+           config: classpath:config/ehcache.xml #ehcache配置文件地址
     #thymeleaf
     thymeleaf:
         mode: LEGACYHTML5

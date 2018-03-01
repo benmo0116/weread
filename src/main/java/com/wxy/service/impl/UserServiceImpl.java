@@ -6,6 +6,9 @@ import com.wxy.mapper.UserMapper;
 import com.wxy.model.User;
 import com.wxy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +29,16 @@ public class UserServiceImpl implements UserService {
     * pageNum 开始页数
     * pageSize 每页显示的数据条数
     * */
+
+    /**
+     * @Cacheable  ：先从缓存中查询，如果没有则查询数据库
+       @CacheEvict  :清空缓存
+       @CachePut  : 更新的时候刷新到缓存
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Cacheable(value = "user")//3
     @Override
     public List<User> findAll(int pageNum, int pageSize) {
         //将参数传给这个方法就可以实现物理分页了，非常简单。
@@ -33,11 +46,13 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectAll();
     }
 
+    @CachePut(value = "user", key = "#user.userid")
     @Override
     public int insertOne(User user) {
         return userMapper.insertSelective(user);
     }
 
+    @CacheEvict(value = "user", key = "#user.userid")//2
     @Override
     public int deleteOneByPrimaryKey(Integer userid) {
         return userMapper.deleteByPrimaryKey(userid);

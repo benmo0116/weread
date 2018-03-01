@@ -1,5 +1,6 @@
 package com.wxy.shiro;
 
+import net.sf.ehcache.CacheManager;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.mgt.SecurityManager;
@@ -25,10 +26,9 @@ public class ShiroConfiguration {
      * ShiroFilterFactoryBean 处理拦截资源文件问题。
      * 注意：单独一个ShiroFilterFactoryBean配置是或报错的，以为在
      * 初始化ShiroFilterFactoryBean的时候需要注入：SecurityManager
-     *
+     * <p>
      * Filter Chain定义说明 1、一个URL可以配置多个Filter，使用逗号分隔 2、当设置多个过滤器时，全部验证通过，才视为通过
      * 3、部分过滤器可指定参数，如perms，roles
-     *
      */
     @Bean
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
@@ -94,7 +94,7 @@ public class ShiroConfiguration {
         // 设置realm.
         securityManager.setRealm(myShiroRealm());
         // 自定义缓存实现 使用redis
-        //securityManager.setCacheManager(cacheManager());
+//        securityManager.setCacheManager(cacheManager());
         // 自定义session管理 使用redis
         //securityManager.setSessionManager(sessionManager());
         //注入记住我管理器;
@@ -103,18 +103,20 @@ public class ShiroConfiguration {
     }
 
     @Bean
-    public MyShiroRealm myShiroRealm(){
+    public MyShiroRealm myShiroRealm() {
         return new MyShiroRealm();
     }
 
 //    sessionIdCookie：maxAge=-1表示浏览器关闭时失效此Cookie；
 //    rememberMeCookie：即记住我的Cookie，保存时长30天；
+
     /**
      * cookie对象;
+     *
      * @return
      */
     @Bean
-    public SimpleCookie rememberMeCookie(){
+    public SimpleCookie rememberMeCookie() {
         //这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
         SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
         //<!-- 记住我cookie生效时间30天 ,单位秒;-->
@@ -125,10 +127,11 @@ public class ShiroConfiguration {
 
     /**
      * cookie管理对象;记住我功能
+     *
      * @return
      */
     @Bean
-    public CookieRememberMeManager rememberMeManager(){
+    public CookieRememberMeManager rememberMeManager() {
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         cookieRememberMeManager.setCookie(rememberMeCookie());
         //rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
@@ -136,4 +139,9 @@ public class ShiroConfiguration {
         return cookieRememberMeManager;
     }
 
+//        // 缓存框架   cacheManager
+//    public CacheManager cacheManager(){
+//        CacheManager ehcacheManager = new CacheManager();
+//        return ehcacheManager;
+//    }
 }

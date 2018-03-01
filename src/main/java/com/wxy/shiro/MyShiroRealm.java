@@ -29,7 +29,7 @@ public class MyShiroRealm extends AuthorizingRealm {
     private UserService userService;//这里会报错，但是并不会影响
 
     /**
-     * 验证用户身份
+     * 验证用户身份  Shiro的用户认证是没有提供缓冲机制的
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
@@ -57,7 +57,7 @@ public class MyShiroRealm extends AuthorizingRealm {
     }
 
     /**
-     * 授权用户权限
+     * 授权用户权限 shiro的授权将会是大量的数据，shiro的授权缓冲是默认开启的
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -75,6 +75,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         permissionSet.add("权限添加");
         permissionSet.add("权限删除");
         info.setStringPermissions(permissionSet);
+
         System.out.println("Shiro授权启动");
         return info;
     }

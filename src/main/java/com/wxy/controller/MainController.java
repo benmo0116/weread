@@ -1,6 +1,5 @@
 package com.wxy.controller;
 
-import com.github.pagehelper.Page;
 import com.wxy.model.BokList;
 import com.wxy.model.Book;
 import com.wxy.model.Record;
@@ -8,8 +7,10 @@ import com.wxy.model.User;
 import com.wxy.service.BokListService;
 import com.wxy.service.BookService;
 import com.wxy.service.RecordService;
+import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,8 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/")
 public class MainController {
-
+//    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+    private static final Logger logger = Logger.getLogger(MainController.class);
     @Autowired
     BookService bookService;
     @Autowired
@@ -43,7 +45,7 @@ public class MainController {
         Subject subject = SecurityUtils.getSubject();
         User principal = (User) subject.getPrincipal();
         map.put("username",principal.getNickname());
-
+        logger.info("==================------------------------=============");
         return "/index";
     }
 

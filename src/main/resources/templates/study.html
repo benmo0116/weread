@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>学习资源网页</title>
+</head>
+<body>
+<div th:include="fragments :: head"></div>
+<div class="content container">
+    <p>ngrok穿透网址： http://weread.free.ngrok.cc</p>
+    <!--Android start-->
+    <div class="panel panel-warning">
+        <div class="panel-heading"><h3>Android</h3></div>
+        <div class="panel-body">
+            <a href=""></a>
+        </div>
+        <!--<div class="panel-footer"></div>-->
+    </div>
+    <!--Android end-->
+    <!--Java start-->
+    <div class="panel panel-warning">
+        <div class="panel-heading"><h3>Java</h3></div>
+        <div class="panel-body">
+            <h4>Springboot 热部署</h4>
+            <a href="https://www.cnblogs.com/bingshu/p/6876030.html" target="_blank">spring boot 之热部署(三)</a>
+            <hr>
+            <h4>EhCache缓存框架</h4>
+            <a href="http://blog.csdn.net/weixin_39910092/article/details/78175465" target="_blank">缓存框架EhCache整合shiro权限验证（基于spring整合）</a>
+            <hr>
+            <h4>Java日志框架</h4>
+            <a href="https://www.cnblogs.com/ywlaker/p/6124067.html" target="_blank">java日志框架log4j详细配置及与slf4j联合使用教程</a>
+            <hr>
+        </div>
+    </div>
+    <!--Java end-->
+    <!--Python start-->
+    <div class="panel panel-warning">
+        <div class="panel-heading"><h3>Python</h3></div>
+        <div class="panel-body"></div>
+    </div>
+    <!--Python end-->
+    <!--工具start-->
+    <div class="panel panel-warning">
+        <div class="panel-heading"><h3>工具</h3></div>
+        <div class="panel-body"></div>
+        <!--<div class="panel-footer"></div>-->
+    </div>
+    <!--工具end-->
+    <!--其他start-->
+    <div class="panel panel-warning">
+        <div class="panel-heading"><h3>其他</h3></div>
+        <div class="panel-body"></div>
+        <!--<div class="panel-footer"></div>-->
+    </div>
+    <!--其他end-->
+</div>
+<!--foot-->
+<div th:include="fragments :: foot"></div>
+</body>
+<script>
+</script>
+</html>
