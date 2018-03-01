@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" th:src="@{/static/js/jquery-3.1.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/index.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/static/js/common.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/static/js/head.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/static/bootstrap/bootstrap-3.3.7-dist/js/bootstrap.min.js}"
+            charset="UTF-8"></script>
+    <link rel="stylesheet" th:href="@{/static/css/common.css}"/>
+    <link rel="stylesheet" th:href="@{/static/bootstrap/bootstrap-3.3.7-dist/css/bootstrap.css}"/>
+    <!--<link rel="stylesheet" th:href="@{/bootstrap/bootstrap-3.3.7-dist/css/bootstrap-theme.css}"/>-->
+    <title>Title</title>
+</head>
+<body>
+<!--head-->
+<div th:fragment="head">
+    <nav class="navbar navbar-default navbar-no-style navbar-fixed-top navbar-inverse">
+        <img class="headbg img-responsive" alt="Responsive image" th:src="@{/static/img/bg1.jpg}"/>
+        <h3 class="head">demo</h3>
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col-md-8 col-xs-12 col-md-offset-2">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <!--<div th:if="${user.isAdmin() == false}"> ...-->
+                        <a class="navbar-brand" href="#" th:if="${shirouser} != null" ><span th:text="${shirouser.nickname}"></span></a>
+                    </div>
+                    <!-- 需要折叠和展开的部分 -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/index">首页</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/user/add" target="_blank">添加用户</a></li>
+                            <li><a href="/book/add" target="_blank">添加新书</a></li>
+                            <li value="booklist"><a href="/booklist/add" target="_blank">添加书单</a></li>
+                            <li value="record"><a href="/record/add" target="_blank">添加记录</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/test/interpret" target="_blank">名词解释</a></li>
+                            <li><a href="/test/test" target="_blank">测试</a></li>
+                            <li><a href="/login" target="_blank">登录测试</a></li>
+                            <li><a href="/logout" target="_blank">退出</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<!--head end-->
+<!--foot-->
+<div th:fragment="foot">
+    <div th:class="foot">
+        <hr/>
+        <p>©2018 wxy. All rights reserved.</p>
+    </div>
+</div>
+<!--foot end-->
+<!--page-->
+<div th:fragment="page">
+    <button class="lastPage" style="display: inline;">上一页</button>
+    <button class="nextPage">下一页</button>
+</div>
+<!--page end-->
+<script>
+
+</script>
+</body>
+</html>

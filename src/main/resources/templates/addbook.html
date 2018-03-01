@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加新书</title>
+</head>
+<body>
+<div th:include="fragments :: head"></div>
+<div class="content container">
+    <div class="row">
+        <div class="horizon col-md-3 col-xs-12">
+            <ul>
+                <li th:each="book:${booklist}" th:text="${book.bookid} + ' ' +  ${book.bookname}">三体</li>
+            </ul>
+            <!--使用 data-* 属性来嵌入自定义数据：-->
+            <div th:include="fragments :: page" th:attr="data-name='book'"></div>
+        </div>
+        <div style="display: inline" class="col-md-9 col-xs-12">
+            <!--第三，空值，如果action为空或不写，表示提交给当前页面。-->
+            <form action="#" th:action="@{/book/save}" method="post" th:object="${book}" method="post">
+                <div class="form-group">
+                    <label>书名：</label>
+                    <input type="text" name="bookname" placeholder="请输入书名" required autofocus
+                           class="form-control" th:field="*{bookname}"/>
+                    <small th:if="${#fields.hasErrors('bookname')}" th:errors="*{bookname}">案例</small>
+                </div>
+                <div class="form-group">
+                    <label>AKA：</label>
+                    <input type="text" name="bookname2" placeholder="请输入书名2"
+                           class="form-control" th:field="*{bookname2}"/>
+                    <small th:if="${#fields.hasErrors('bookname2')}" th:errors="*{bookname2}">案例</small>
+                </div>
+                <div class="form-group">
+                    <label>作者：</label>
+                    <input type="text" name="author" th:field="*{author}"  required
+                           class="form-control" placeholder="请输入作者名"/>
+                    <small th:if="${#fields.hasErrors('author')}" th:errors="*{author}">案例</small>
+                </div>
+                <div class="form-group">
+                    <label>国籍：</label>
+                    <input type="text" name="country" th:field="*{country}"  required
+                           class="form-control" placeholder="请输入作者国籍"/>
+                    <small th:if="${#fields.hasErrors('country')}" th:errors="*{country}">案例</small>
+                </div>
+                <div class="form-group">
+                    <label>字数：</label>
+                    <input type="text" name="wordcount" th:field="*{wordcount}"
+                           class="form-control" placeholder="请输入书籍字数"/>
+                    <small th:if="${#fields.hasErrors('wordcount')}" th:errors="*{wordcount}">案例</small>
+                </div>
+                <div class="form-group">
+                    <label>类型：</label>
+                    <input type="text" name="booktype" th:field="*{booktype}"  required
+                           class="form-control" placeholder="请输入书籍类型"/>
+                    <small th:if="${#fields.hasErrors('booktype')}" th:errors="*{booktype}">案例</small>
+                </div>
+                <input class="blue btn" type="reset" value="重置"/>&nbsp;&nbsp;
+                <input class="blue btn" type="submit"/>
+                <small th:text="${MSG}">案例</small>
+                <!--全部error-->
+                <ol>
+                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}">asd</li>
+                </ol>
+                <div th:if="${#fields.hasAnyErrors()}">
+                    <p th:each="err : ${#fields.allErrors()}" th:text="${err}">错误列表</p>
+                </div>
+            </form>
+            <!--form外-->
+            <hr/>
+            <div th:errors="${book}">...</div>
+            <div th:errors="${book.author}">...</div>
+            <div th:errors="${book.*}">...</div>
+        </div>
+    </div>
+</div>
+<div th:include="fragments :: foot"></div>
+<script>
+</script>
+</body>
+</html>

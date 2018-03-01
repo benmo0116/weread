@@ -1,0 +1,17 @@
+
+/*glyphicon*/
+.glyphicon-arrow{
+    width: 14px;
+    height: 14px;
+    margin-left: 20px;
+}
+.glyphicon-arrow-down{
+    background-image: url("/img/arrowl.png");
+}
+
+/*实现单行文本溢出隐藏的方式*/
+.cut {
+    overflow: hidden;/*溢出隐藏*/
+    text-overflow: ellipsis;/*文本溢出省略号*/
+    white-space: nowrap;/*不换行*/
+}

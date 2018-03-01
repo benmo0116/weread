@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script type="text/javascript" th:src="@{/static/js/jquery-3.1.1.min.js}"></script>
+    <script type="text/javascript" src="static/bootstrap/bootstrap-3.3.7-dist/js/bootstrap.min.js" charset="UTF-8"></script>
+    <link rel="stylesheet" th:href="@{/static/bootstrap/bootstrap-3.3.7-dist/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/login.css}">
+    <title>登录页面</title>
+</head>
+<body>
+<div class="container">
+    <form class="form-signin" action="/login/" method="post">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputAccount" class="sr-only">Account</label>
+        <input type="text" name="account" id="inputAccount" class="form-control" placeholder="Account" required
+               autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+            <!--checkbox 未选中时 传值为null-->
+            <label>
+                <input type="checkbox" value="true" name="rememberMe" checked> Remember me
+            </label>
+        </div>
+        <small th:text="${MSG}" style="color: red">案例</small>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+</div> <!-- /container -->
+<script>
+    $(function () {
+//        如何改变CheckBox相关属性值 向后台传布尔值
+        $('input[name="rememberMe"]').click(function () {
+//            console.log($(this).val());
+            console.log($(this).prop('checked'));
+            $(this).prop('checked', $(this).prop('checked'));
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="${ctxPath}/static/validate/jquery-html5Validate.js"></script>
+    <title>添加新用户</title>
+</head>
+<body>
+<div th:include="fragments :: head"></div>
+<div class="content container">
+    <div class="row">
+        <div class="horizon col-md-3 col-xs-12">
+            <ul>
+                <li th:each="user:${users}" th:text="${user.userid} + ' ' +  ${user.username}">三体</li>
+            </ul>
+            <!--使用 data-* 属性来嵌入自定义数据：-->
+            <div th:include="fragments :: page" th:attr="data-name='user'"></div>
+        </div>
+        <div style="display: inline" class="col-md-9 col-xs-12">
+            <!--第三，空值，如果action为空或不写，表示提交给当前页面。-->
+            <form action="#" th:action="@{/user/save}" method="post" th:object="${user}">
+                <div class="form-group">
+                    <label>用户名：</label>
+                    <input required type="text" autofocus="autofocus" name="username"  placeholder="请输入用户名"
+                           class="form-control" th:field="*{username}"/>
+                    <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}">案例</small>
+                </div>
+                <div class="form-group">
+                    <label>昵&nbsp;&nbsp;&nbsp;称：</label>
+                    <input required type="text" name="nickname" placeholder="请输入昵称"
+                           class="form-control" th:field="*{nickname}"/>
+                    <small th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}">案例</small>
+                </div>
+                <div class="form-group">
+                    <label>密&nbsp;&nbsp;&nbsp;码：</label>
+                    <input required type="password" name="password" th:field="*{password}"
+                           class="form-control" placeholder="请输入密码"/>
+                    <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}">案例</small>
+                </div>
+                <input class="blue btn" type="reset" value="重置"/>&nbsp;&nbsp;
+                <input class="blue btn" type="submit"/>
+                <small th:text="${MSG}">案例</small>
+            </form>
+            <!--form外-->
+        </div>
+    </div>
+</div>
+<div th:include="fragments :: foot"></div>
+</body>
+</html>

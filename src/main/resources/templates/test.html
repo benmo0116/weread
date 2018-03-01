@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/static/css/test.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/webuploader-0.1.5/webuploader.css}">
+    <script type="text/javascript" th:src="@{/static/js/jquery-3.1.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/webuploader-0.1.5/webuploader.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/common.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/upload.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/download.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/websocket.js}"></script>
+    <!-- 音频播放插件   start -->
+    <!--<link rel="stylesheet" th:href="@{/audioplayer/css/_audio.css}" />-->
+    <!--<script th:src="@{/audioplayer/js/main.js}"></script>-->
+    <!--<script th:src="@{/audioplayer/js/audioplayer.js}"></script>-->
+    <!-- 音频播放插件    end-->
+    <!--视频播放插件-->
+    <script type="text/javascript" th:src="@{/static/ckplayer/ckplayer.js}" charset="utf-8"></script>
+
+    <title>测试页面</title>
+</head>
+<body>
+<div th:include="fragments :: head"></div>
+<div class="content container">
+    <div class="row">
+        <div class="testcontent col-md-12 col-xs-12">
+            <div>
+                <h4>上传测试</h4>
+                <!--<form id="upload-form" action="/test/fileUpload" method="post" enctype="multipart/form-data">-->
+                <!--<input type="file" id="upload" name="upload"/> <br/>-->
+                <!--<input type="submit" value="Upload"/>-->
+                <!--</form>-->
+                <div id="uploader" class="wu-example">
+                    <!--用来存放文件信息-->
+                    <div id="thelist" class="uploader-list"></div>
+                    <div class="btns">
+                        <div id="picker">选择文件</div>
+                        <button id="ctlBtn" class="btn btn-default">开始上传</button>
+                        <button id="goBack" class="btn btn-default">返回</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h4>下载测试</h4>
+                <div>
+                    <!--该属性也可以设置一个值来规定下载文件的名称。所允许的值没有限制，浏览器将自动检测正确的文件扩展名并添加到文件 (.img, .pdf, .txt, .html, 等等)。-->
+                    <!--如果想不通过后台直接下载的话，可以把文件路径给a标签的属性href；-->
+                    <!--但是有个情况，比如txt,png,jpg等这些浏览器支持直接打开的文件是不会执行下载任务的，而是会直接打开文件，这个时候就需要给a标签添加一个属性“download”；-->
+                    <a href="/test/download?path=/yc_edu.sql&fileName=ycedu.sql">下载文件</a>
+                    <a href="/test/download?path=/bg1.jpg&fileName=bg1.jpg">下载图片</a>
+                    <a href="/static/img/bg1.jpg">图片预览</a>
+                    <a download="bg1.jpg" href="/static/img/bg1.jpg">图片下载(不通过后台)</a>
+                    <button class="btn" id="downfile">下载文件</button>
+                    <button class="btn" id="downpic">下载图片</button>
+                </div>
+            </div>
+            <div>
+                <h4>文档预览</h4>
+                <div>
+                    <a href="/static/img/bg1.jpg" target="_blank">图片预览</a>
+                    <a href="/pdf.pdf" target="_blank">PDF预览</a>
+                    <a href="/test2/browse/txt" target="_blank">txt预览</a>
+                    <a href="/test2/browse/doc" target="_blank">doc预览</a>
+                    <a href="/test2/browse/docx" target="_blank">docx预览</a>
+                    <a href="/test2/browse/xls" target="_blank">xls预览</a>
+                    <a href="/test2/browse/ppt" target="_blank">ppt预览</a>
+                </div>
+            </div>
+            <div>
+                <h4>敏感词过滤测试</h4>
+                <!--方式一-->
+                <form action="/test2/word" method="post" target="targetIfr">
+                    <input type="text" placeholder="请输入测试文字，并按回车键测试 (请允许浏览器接受通知)" name="word"/>
+                    <!--<input type="submit" value="测试"/>-->
+                </form>
+                <iframe name="targetIfr" style="display:none"></iframe>
+
+                <!--form表单提交跳转页面情况-->
+                <!--通过点击这个按钮提交表单数据跳转到action里url -->
+                <!--如果通过form表单提交请求服务端去下载文件，这时当前页面不会发生跳转，服务端返回void，
+                通过response 去写文件数据，页面会显示下载文件。 -->
+                <!--方式二-->
+                <!--<form action="/test2/word" method="post">-->
+                <!--<input type="text" placeholder="请输入测试文字" name="word"/>-->
+                <!--<input type="submit" value="测试">-->
+                <!--</form>-->
+            </div>
+            <div>
+                <h4>在线客服</h4>
+                <!--聊天示例-->
+                <div style="margin-bottom: 10px">
+                    <!--必须是好友-->
+                    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1619045698&site=qq&menu=yes">
+                        <img border="0" src="http://wpa.qq.com/pa?p=2:1619045698:41" alt="点击这里给我发消息"
+                             title="点击这里给我发消息"/>
+                    </a>
+                    <!--临时会话 IDKEY 需要qq账号人开通推广功能-->
+                    <a target="_blank"
+                       href="http://sighttp.qq.com/authd?IDKEY=c3689122434dcfbde0e266c0e6500c6203fcd5db4c99f045">
+                        <img border="0"
+                             src="http://wpa.qq.com/imgd?IDKEY=c3689122434dcfbde0e266c0e6500c6203fcd5db4c99f045&pic=41"
+                             alt="点击这里给我发消息" title="点击这里给我发消息"/>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4>分享</h4>
+            </div>
+            <!--********************************************************************-->
+            <div>
+                <h4>音频播放 </h4>
+                <p>
+                    <a href="http://www.jq22.com/jquery-info419" target="_blank">插件描述：jQuery音频播放器AUDIOPLAYER.JS免费重量轻、
+                        移动首先</a>
+                </p>
+                <audio preload="auto" controls>
+                    <!--<source src="/audioplayer/2478.wav" />-->
+                    <!--<source src="/audioplayer/audio.ogg" />-->
+                    <source src="/audioplayer/audio4.mp3"/>
+                </audio>
+                <p>Html5 原生audio</p>
+                <audio controls>
+                    <source src="/static/audioplayer/audio.ogg" type="audio/ogg">
+                    <source src="/static/audioplayer/audio4.mp3" type="audio/mpeg">
+                    您的浏览器不支持 audio 元素。
+                </audio>
+            </div>
+            <div>
+                <h4>视频点播</h4>
+                <p><a href="http://www.ckplayer.com/manualX/27.html" target="_blank">ckplayer是一款在网页上播放视频的免费软件，主要特点是：免费，小巧，功能强大，定制方便。</a>
+                </p>
+                <!-- 视频播放器位置 -->
+                <div style="padding: 0px 0px 0px 0px;">
+                    <div class="video"></div>
+                </div>
+            </div>
+            <div>
+                <h4>Validation 参数校验</h4>
+                <a href="https://www.cnblogs.com/beiyan/p/5946345.html" target="_blank">参考学习</a>
+                <p>
+                    参数校验是我们程序开发中必不可少的过程。用户在前端页面上填写表单时，前端js程序会校验参数的合法性，当数据到了后端，为了防止恶意操作，保持程序的健壮性，后端同样需要对数据进行校验。后端参数校验最简单的做法是直接在业务方法里面进行判断，当判断成功之后再继续往下执行。但这样带给我们的是代码的耦合，冗余。当我们多个地方需要校验时，我们就需要在每一个地方调用校验程序,导致代码很冗余，且不美观。</p>
+                <p>JSR303 是一套JavaBean参数校验的标准，它定义了很多常用的校验注解，我们可以直接将这些注解加在我们JavaBean的属性上面，就可以在需要校验的时候进行校验了。注解如下：</p>
+                <img src="/static/img/p1.png" class="img-responsive" alt="Responsive image"/>
+                <p>Hibernate validator 在JSR303的基础上对校验注解进行了扩展，扩展注解如下：</p>
+                <img src="/static/img/p2.png" class="img-responsive" alt="Responsive image"/>
+                <h4>html5Validate 表单验证</h4>
+                <a href="http://www.zhangxinxu.com/wordpress/2012/12/jquery-html5validate-html5-form-validate-plugin/"
+                   target="_blank">jQuery html5Validate基于HTML5表单验证插件</a>
+            </div>
+            <div>
+                <h4>Shiro java安全框架</h4>
+                <p>Apache
+                    Shiro是一个强大且易用的Java安全框架,执行身份验证、授权、密码学和会话管理。使用Shiro的易于理解的API,您可以快速、轻松地获得任何应用程序,从最小的移动应用程序到最大的网络和企业应用程序。</p>
+            </div>
+            <!--start-->
+            <div>
+                <h4>ActiveMQ 消息队列</h4>
+                <p>ActiveMQ 是Apache出品，最流行的，能力强劲的开源消息总线。ActiveMQ 是一个完全支持JMS1.1和J2EE 1.4规范的 JMS
+                    Provider实现，尽管JMS规范出台已经是很久的事情了，但是JMS在当今的J2EE应用中间仍然扮演着特殊的地位。</p>
+            </div>
+            <!--end-->
+            <div>
+                <h4>EhCache缓存</h4>
+                <p>EhCache是一个纯Java的进程内缓存框架，具有快速、精干等特点，是Hibernate中默认的CacheProvider。</p>
+            </div>
+            <!--start-->
+            <div>
+                <h4>redis缓存</h4>
+                <p>Redis是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。</p>
+                <article>
+                    <p>redis是一个key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、
+                        list(链表)、set(集合)、zset(sorted set --有序集合)和hash（哈希类型）。这些数据类型都支持push/pop、
+                        add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，redis支持各种
+                        不同方式的排序。与memcached一样，为了保证效率，数据都是缓存在内存中。区别的是redis会周期性的把
+                        更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了master-slave(主从)同步。</p>
+                    <p>Redis 是一个高性能的key-value数据库。 redis的出现，很大程度补偿了memcached这类key/value存储的不足，
+                        在部 分场合可以对关系数据库起到很好的补充作用。它提供了Java，C/C++，C#，PHP，JavaScript，Perl，
+                        Object-C，Python，Ruby，Erlang等客户端，使用很方便。</p>
+                </article>
+            </div>
+            <!--end-->
+            <!--start-->
+            <div>
+                <h4>websocket</h4>
+                <button id="wsbtn" class="btn" onclick="send('你好啊')">发送新消息</button>
+            </div>
+            <!--end-->
+            <!--start-->
+            <div>
+                <h4>elasticsearch 检索</h4>
+                <p></p>
+            </div>
+            <!--end-->
+            <!--start-->
+            <div>
+                <h4></h4>
+            </div>
+            <!--end-->
+        </div>
+    </div>
+</div>
+<!--foot-->
+<div th:include="fragments :: foot"></div>
+</body>
+<script>
+    $(function () {
+//        $( 'audio' ).audioPlayer();
+        var videoObject = {
+            container: '.video',//“#”代表容器的ID，“.”或“”代表容器的class
+            variable: 'player',//该属性必需设置，值等于下面的new chplayer()的对象
+            //flashplayer:true,//如果强制使用flashplayer则设置成true
+            video: [
+                ['/static/ckplayer/24708812-1.mp4', 'video/mp4', '中文超清', 0]
+                /* ['http://img.ksbbs.com/asset/Mon_1703/05cacb4e02f9d9e.mp4', 'video/mp4', '中文标清', 0],
+                 ['http://img.ksbbs.com/asset/Mon_1703/d0897b4e9ddd9a5.mp4', 'video/mp4', '中文高清', 0],
+                 ['http://img.ksbbs.com/asset/Mon_1703/d30e02a5626c066.mp4', 'video/mp4', '英文超清', 0] */
+                /* ['http://10.0.119.151:8999/151021905049129009_BD.mp4', 'video/mp4', '中文标清', 0],
+                 ['http://10.0.119.151:8999/151021905049129009_HD.mp4', 'video/mp4', '中文高清', 0],
+                 ['http://10.0.119.151:8999/151021905049129009_FHD.mp4', 'video/mp4', '中文超清', 0] */
+            ]//视频地址
+        };
+        var player = new ckplayer(videoObject);
+    });
+</script>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/static/css/test.css}"/>
+    <title>名词解释</title>
+</head>
+<body>
+<div th:include="fragments :: head"></div>
+<div class="content container">
+    <!--<div class="panel panel-warning">-->
+    <!--<div class="panel-heading">-->
+    <!--<h3>bootstrap面板 panel-heading</h3>-->
+    <!--</div>-->
+    <!--<div class="panel-body">bootstrap面板 panel-body</div>-->
+    <!--<div class="panel-footer">bootstrap面板 panel-footer</div>-->
+    <!--</div>-->
+
+
+    <div class="testcontent">
+        <h3>Spring相关概念解释</h3>
+        <div>
+            <h4>IOC</h4>
+            <p></p>
+        </div>
+        <div>
+            <h4>AOP</h4>
+            <h4>Aspect Oriented Programming 面向切面编程的编程思想</h4>
+            <p>通过预编译方式和运行期动态代理实现程序功能的统一维护的一种技术。AOP是OOP的延续，是软件开发中的一个热点，也是
+                Spring框架中的一个重要内容，是函数式编程的一种衍生范型。利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务
+                逻辑各部分之间的耦合度降低，提高程序的可重用性，同时提高了开发的效率。</p>
+        </div>
+        <h3>数据库</h3>
+        <div>
+            <h4>数据库连接池</h4>
+            <p>数据库连接池负责分配、管理和释放数据库连接，它允许应用程序重复使用一个现有的数据库连接，
+                而不是再重新建立一个；释放空闲时间超过最大空闲时间的数据库连接来避免因为没有释放数据库
+                连接而引起的数据库连接遗漏。这项技术能明显提高对数据库操作的性能。</p>
+            <p><strong>数据库连接是一种关键的、有限的、昂贵的资源</strong>，这一点在多用户的网页应用程序中体现得尤为突出。
+                对数据库连接的管理能显著影响到整个应用程序的伸缩性和健壮性，影响到程序的性能指标。数据库连接池
+                正是针对这个问题提出来的。
+            </p>
+            <h5>1. 最小连接数</h5>
+            <p>是连接池一直保持的数据库连接，所以如果应用程序对数据库连接的使用量不大，将会有大量的数据库连接资源被浪费。 </p>
+            <h5>2. 最大连接数</h5>
+            <p>是连接池能申请的最大连接数，如果数据库连接请求超过此数，后面的数据库连接请求将被加入到等待队列中，这会影响之后的数据库操作。 </p>
+            <h5>3. 最小连接数与最大连接数差距</h5>
+            <p>最小连接数与最大连接数相差太大，那么最先的连接请求将会获利，之后超过最小连接数量的连接请求等价于建立一个
+                新的数据库连接。不过，这些大于最小连接数的数据库连接在使用完不会马上被释放，它将被放到连接池中等待重复
+                使用或是空闲超时后被释放。 </p>
+        </div>
+        <!--start-->
+        <h3>Druid</h3>
+        <div>
+            <h4>阿里巴巴 数据库连接池</h4>
+            <p>Druid是Java语言中最好的数据库连接池。Druid能够提供强大的监控和扩展功能。</p>
+        </div>
+        <div>
+            <h4>数据存储系统（Data Store）</h4>
+            <p>美国广告技术公司MetaMarkets 于2011 年创建了Druid 项目，并且于2012 年晚期开源了Druid 项目。
+                Druid 设计之初的想法就是为分析而生，它在处理数据的规模、数据处理的实时性方面，比传统的
+                OLAP 系统有了显著的性能改进，而且拥抱主流的开源生态，包括Hadoop 等。
+                多年以来，Druid 一直是非常活跃的开源项目。 </p>
+        </div>
+        <!--end-->
+    </div>
+    <!--start-->
+    <div class="panel panel-warning">
+        <div class="panel-heading"><h3>spring cloud</h3></div>
+        <div class="panel-body"><strong>Spring Cloud是一系列框架的有序集合。</strong>它利用Spring
+            Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring
+            Boot的开发风格做到一键启动和部署。Spring并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过Spring
+            Boot风格进行再封装屏蔽掉了复杂的配置和实现原理，最终给开发者留出了一套简单易懂、易部署和易维护的分布式系统开发工具包。
+        </div>
+        <!--<div class="panel-footer"></div>-->
+    </div>
+    <!--end-->
+</div>
+<!--foot-->
+<div th:include="fragments :: foot"></div>
+</body>
+</html>

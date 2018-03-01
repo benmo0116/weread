@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxy.mapper.BokListMapper">
+  <resultMap id="BaseResultMap" type="com.wxy.model.BokList">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="userID" jdbcType="INTEGER" property="userid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="bookID" jdbcType="INTEGER" property="bookid" />
+    <result column="bookName" jdbcType="VARCHAR" property="bookname" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="listYear" jdbcType="INTEGER" property="listyear" />
+    <result column="planStartTime" jdbcType="DATE" property="planstarttime" />
+    <result column="planFinishTime" jdbcType="INTEGER" property="planfinishtime" />
+    <result column="startTime" jdbcType="DATE" property="starttime" />
+    <result column="finishTime" jdbcType="DATE" property="finishtime" />
+    <result column="listTime" jdbcType="DATE" property="listtime" />
+    <result column="ifFinished" jdbcType="BIT" property="iffinished" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+      id, userID, username,
+      bookID, bookName, author,
+      listYear, planStartTime, planFinishTime,
+      startTime, finishTime, listTime,
+      ifFinished
+  </sql>
+  <insert id="insert" parameterType="com.wxy.model.BokList">
+    insert into r_boolist (id,userID, bookID, startTime, finishTime,
+      planStartTime, planFinishTime, listYear, ifFinished, listTime)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER},
+    #{bookid,jdbcType=INTEGER}, #{starttime,jdbcType=DATE}, #{finishtime,jdbcType=DATE},
+      #{planstarttime,jdbcType=DATE}, #{planfinishtime,jdbcType=INTEGER},
+      #{listyear,jdbcType=INTEGER}, #{iffinished,jdbcType=BIT}, #{listtime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wxy.model.BokList">
+    insert into r_boolist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userid != null">
+        userID,
+      </if>
+      <if test="bookid != null">
+        bookID,
+      </if>
+      <if test="listyear != null">
+        listYear,
+      </if>
+      <if test="planstarttime != null">
+        planStartTime,
+      </if>
+      <if test="planfinishtime != null">
+        planFinishTime,
+      </if>
+      <if test="starttime != null">
+        startTime,
+      </if>
+      <if test="finishtime != null">
+        finishTime,
+      </if>
+      <if test="listtime != null">
+        listTime,
+      </if>
+      <if test="iffinished != null">
+        ifFinished,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="bookid != null">
+        #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="listyear != null">
+        #{listyear,jdbcType=INTEGER},
+      </if>
+      <if test="planstarttime != null">
+        #{planstarttime,jdbcType=DATE},
+      </if>
+      <if test="planfinishtime != null">
+        #{planfinishtime,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=DATE},
+      </if>
+      <if test="finishtime != null">
+        #{finishtime,jdbcType=DATE},
+      </if>
+      <if test="listtime != null">
+        #{listtime,jdbcType=DATE},
+      </if>
+      <if test="iffinished != null">
+        #{iffinished,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <!--<insert id="insertSelective" parameterType="com.wxy.model.BokList">-->
+    <!--insert into v_booklist-->
+    <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
+      <!--<if test="id != null">-->
+        <!--id,-->
+      <!--</if>-->
+      <!--<if test="userid != null">-->
+        <!--userID,-->
+      <!--</if>-->
+      <!--<if test="username != null">-->
+        <!--username,-->
+      <!--</if>-->
+      <!--<if test="bookid != null">-->
+        <!--bookID,-->
+      <!--</if>-->
+      <!--<if test="bookname != null">-->
+        <!--bookName,-->
+      <!--</if>-->
+      <!--<if test="author != null">-->
+        <!--author,-->
+      <!--</if>-->
+      <!--<if test="listyear != null">-->
+        <!--listYear,-->
+      <!--</if>-->
+      <!--<if test="planstarttime != null">-->
+        <!--planStartTime,-->
+      <!--</if>-->
+      <!--<if test="planfinishtime != null">-->
+        <!--planFinishTime,-->
+      <!--</if>-->
+      <!--<if test="starttime != null">-->
+        <!--startTime,-->
+      <!--</if>-->
+      <!--<if test="finishtime != null">-->
+        <!--finishTime,-->
+      <!--</if>-->
+      <!--<if test="listtime != null">-->
+        <!--listTime,-->
+      <!--</if>-->
+      <!--<if test="iffinished != null">-->
+        <!--ifFinished,-->
+      <!--</if>-->
+    <!--</trim>-->
+    <!--<trim prefix="values (" suffix=")" suffixOverrides=",">-->
+      <!--<if test="id != null">-->
+        <!--#{id,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="userid != null">-->
+        <!--#{userid,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="username != null">-->
+        <!--#{username,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="bookid != null">-->
+        <!--#{bookid,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="bookname != null">-->
+        <!--#{bookname,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="author != null">-->
+        <!--#{author,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="listyear != null">-->
+        <!--#{listyear,jdbcType=DATE},-->
+      <!--</if>-->
+      <!--<if test="planstarttime != null">-->
+        <!--#{planstarttime,jdbcType=DATE},-->
+      <!--</if>-->
+      <!--<if test="planfinishtime != null">-->
+        <!--#{planfinishtime,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="starttime != null">-->
+        <!--#{starttime,jdbcType=DATE},-->
+      <!--</if>-->
+      <!--<if test="finishtime != null">-->
+        <!--#{finishtime,jdbcType=DATE},-->
+      <!--</if>-->
+      <!--<if test="listtime != null">-->
+        <!--#{listtime,jdbcType=DATE},-->
+      <!--</if>-->
+      <!--<if test="iffinished != null">-->
+        <!--#{iffinished,jdbcType=BIT},-->
+      <!--</if>-->
+    <!--</trim>-->
+  <!--</insert>-->
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from v_booklist
+  </select>
+</mapper>

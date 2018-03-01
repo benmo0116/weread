@@ -1,0 +1,63 @@
+project:
+    name: weread
+    author: wxy
+
+server:
+  port: 8080
+
+spring:
+    # 生产/开发环境配置 需要有application-dev.yml/application-prod.yml
+    profiles:
+        active: dev
+    #在Springboot中可以直接在配置文件中覆盖默认的静态资源路径的配置信息：
+#    mvc:
+    # static-path-pattern: /we/**   如果添加自定义目录，所有引用静态资源的地方都应添加
+#        static-path-pattern: /**
+    # spring.http.multipart.location 自定义的属性，指定了一个路径,上传物理路径；
+    http:
+        multipart:
+            location: F://WereadTest
+    #在这里配置静态资源路径，前面说了这里的配置是覆盖默认配置，所以需要将默认的也加上
+    #否则static、public等这些路径将不能被当作静态资源路径，
+    #在这个最末尾的file:${...}之所有要加file:是因为指定的是一个具体的硬盘路径，
+    #其他的使用classpath指的是系统环境变量
+#    resources:
+#        static-locations: classpath:/META-INF/resources/,classpath:/resources/, classpath:/static/, classpath:/public/, file:${spring.http.multipart.location}
+
+    datasource:
+        name: weread
+        url: jdbc:mysql://127.0.0.1:3306/weread
+        username: root
+        password: 123456
+        # 使用druid数据库连接池
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+    #thymeleaf
+    thymeleaf:
+        mode: LEGACYHTML5
+        cache: false
+        #开发时关闭缓存,不然没法看到实时页面
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.wxy.model
+
+#mybatis分页插件-pagehelper
+pagehelper:
+    helperDialect: mysql
+    #分页参数合理化,默认是false
+    reasonable: false
+    supportMethodsArguments: true
+    params: count=countSql

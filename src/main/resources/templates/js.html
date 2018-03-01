@@ -1,0 +1,156 @@
+<script th:fragment="js" th:inline="javascript">
+    /*<![CDATA[*/
+    var book_page = 1;
+    var booklist_page = 1;
+    var record_page = 1;
+    $(function () {
+        $('img').slideUp(2600);
+        // $('img').hide(2600);
+        $(".lastPage").click(function (e) {
+            paging(-1, $(this).parent().attr("data-name"));
+        });
+        $(".nextPage").click(function (e) {
+            paging(1, $(this).parent().attr("data-name"));
+        });
+
+        $(".add_btns button").click(function (e) {
+            switch ($(this).attr("id")) {
+                case 'index':
+                    index();
+                    break;
+                case 'add_user':
+                    addUser();
+                    break;
+                case 'add_book':
+                    addBook();
+                    break;
+                case 'add_booklist':
+                    addBooklist();
+                    break;
+                case 'add_record':
+                    addRecord();
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        $.ajaxSetup({
+            type: "POST",
+            dataType: "json"
+        });
+
+    });
+    function index() {
+        window.location.href = "/index";//首页
+    }
+    function addUser() {
+        window.open('/user/add');
+    }
+    function addBook() {
+        // window.history.back(-1);返回上一页
+        // location.reload();页面刷新
+        // window.location.href = "/book/add";
+        window.open('/book/add');
+    }
+    function addBooklist() {
+        window.open('/booklist/add');
+    }
+    function addRecord() {
+        window.open('/record/add');
+    }
+    function test() {
+        alert("成功");
+    }
+    //分页 模块名 第几页
+    function paging(i, modelename) {
+        switch (modelename) {
+            case 'book':
+                var _page = (book_page + i) < 1 ? 1 : book_page + i;
+                ajax("/book/list", _page, 10, function (data) {
+                    book_page = _page;
+                    parseBooks(data);
+                });
+                break;
+            case 'booklist':
+                var _page = (booklist_page + i) < 1 ? 1 : booklist_page + i;
+                ajax("/booklist/list", _page, 5, function (data) {
+                    booklist_page = _page;
+                    parseBookLists(data);
+                });
+                break;
+            case 'record':
+                var _page = (record_page + i) < 1 ? 1 : record_page + i;
+                ajax("/record/list", _page, 10, function (data) {
+                    record_page = _page;
+                    parseRecords(data);
+                });
+                break;
+            default:
+                break;
+        }
+    }
+
+    // 另一种写法
+    // $.myajax = function(url, _page, callback) {
+    //     $.ajax({
+    //         url: url,
+    //         data: {pageNum:_page, pageSize:10},
+    //         success:callback
+    //     });
+    // }
+
+    function ajax(url, _page, pagesize, callback) {
+        $.ajax({
+            url: url,
+            data: {pageNum: _page, pageSize: pagesize},
+            success: callback
+        });
+    }
+    function parseBooks(data) {
+        var elem = $('#book');
+        elem.html("");
+        $.each(data, function (i, book) {
+            var e = $("<li></li>").text(book.bookname);   // 以 jQuery 创建新元素
+            elem.append(e);
+        });
+    }
+    function parseBookLists(data) {
+        var elem = $('#booklist');
+        elem.html("");
+        $.each(data, function (i, book) {
+            var e = $("<li></li>").text(book.username + "-" + book.bookname);   // 以 jQuery 创建新元素
+            elem.append(e);
+        });
+    }
+
+    function parseRecords(data) {
+        var elem = $('#record');
+        elem.html("");
+        var content = "";
+        $.each(data, function (i, record) {
+            content += "<tr>";
+//            content += "<td th:text='${#dates.format("+record.recordtime +", \"yyyy-MM-dd\")}'>" + record.recordtime+ "</td>";
+             content += "<td>" + getLocalTime(record.recordtime)+ "</td>";
+            content += "<td>" + record.nickname + "</td>";
+            content += "<td>" + record.bookname + "</td>";
+            content += "<td>" + record.bookname2 + "</td>";
+            content += "<td>" + record.author + "</td>";
+            content += "<td>" + record.country + "</td>";
+            content += "<td>" + record.readpercent + "</td>";
+            content += "</tr>";
+        });
+        elem.html(content);
+        console.log(data);
+        console.log(elem.parent().html());
+    }
+     function parseTimeStramp(time) {
+//         console.log($.myTime.UnixToDate(time));
+//         return $.myTime.UnixToDate(time);
+//         var temp = ${#dates.format(date, 'dd/MMM/yyyy HH:mm')};
+     }
+    function getLocalTime(nS) {
+        return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
+    }
+    /*]]>*/
+</script>

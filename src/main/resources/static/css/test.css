@@ -1,0 +1,37 @@
+
+/*响应式设计 @media*/
+@media screen and (max-width: 736px) {
+    .testcontent > div{
+        margin: 20px 0px;
+        /*width: 100%;*/
+        border: 1px solid lightseagreen;
+        color: lightseagreen;
+        padding: 10px 12px;
+    }
+}
+@media screen and (min-width: 737px) {
+    .testcontent > div{
+        margin: 20px 0px;
+        /*width: 100%;*/
+        border: 1px solid lightseagreen;
+        color: lightseagreen;
+        padding: 10px 32px;
+    }
+}
+form{
+    margin-top: 0px !important;
+    width: 100%;
+    border: none !important;
+    padding: 10px;
+    float: none !important;
+}
+
+div p{
+    color: orange;
+}
+.panel-body{
+    color: orange;
+}
+form input {
+
+}

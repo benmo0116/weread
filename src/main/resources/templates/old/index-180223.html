@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" th:href="@{/css/index.css}"/>
+    <title>weread record</title>
+</head>
+<body>
+<div th:include="fragments :: head"></div>
+<div class="rotate" style="display: none">
+    <span>旋转</span>
+</div>
+<main class="content container">
+    <div class="horizon">
+        <ul id="book">
+            <li th:id="demo" th:each="book:${booklists}" th:text="${book.bookname}">三体</li>
+        </ul>
+        <!--使用 data-* 属性来嵌入自定义数据：-->
+        <div th:include="fragments :: page" th:attr="data-name='book'"></div>
+        <h4 class="title">2018年度计划表</h4>
+        <ul id="booklist">
+            <li th:each="booklist:${boklist}" th:text="${booklist.username}+'—'+ ${booklist.bookname}">三体</li>
+        </ul>
+        <div th:include="fragments :: page" th:attr="data-name='booklist'"></div>
+    </div>
+    <div style="display: inline">
+        <table>
+            <thead>
+            <tr>
+                <td>时间</td>
+                <td>姓名</td>
+                <td>书名</td>
+                <td>别名</td>
+                <td>作者</td>
+                <td>国家</td>
+                <td>进度</td>
+            </tr>
+            </thead>
+            <tbody th:remove="all-but-first" id="record">
+            <tr th:each="record:${recordlists}">
+                <td th:text="${#dates.format(record.recordtime, 'yyyy-MM-dd HH:mm:ss')}">1989-12-12 20:00:00</td>
+                <td th:text="${record.nickname}">小小</td>
+                <td th:text="${record.bookname}">三体</td>
+                <td th:text="${record.bookname2}">ThreeBody</td>
+                <td th:text="${record.author}">刘慈欣</td>
+                <td th:text="${record.country}">中</td>
+                <td th:text="${#numbers.formatDecimal(record.readpercent,1,2)}">50%</td>
+            </tr>
+            <tr>
+                <td>1989-12-12</td>
+                <td>小小</td>
+                <td>三体</td>
+                <td>ThreeBody</td>
+                <td>刘慈欣</td>
+                <td>中</td>
+                <td>50%</td>
+            </tr>
+            </tbody>
+            <!--<div id="pageID"></div>-->
+        </table>
+        <div th:include="fragments :: page" th:attr="data-name='record'"></div>
+    </div>
+</main>
+<!--foot-->
+<div th:include="fragments :: foot"></div>
+<!--th:inline="javascript" 定义js脚本可以使用变量-->
+<!--为什么不能改变${booklists}的值，直接改变循环列表？？-->
+<!--<script th:replace="js :: js"></script>-->
+<!--text/html-->
+<!--text/template-->
+<script type="text/html" id="thymeleafTable">
+    <ul>
+        <li th:each="book:${booklists}" th:text="${book.bookname}">三体</li>
+    </ul>
+</script>
+<script th:inline="javascript" >
+    /*<![CDATA[*/
+//    var booklists = [[${booklists}]];
+//    console.log([[${booklists}]]);
+    //    var elem = $('#record');
+//    console.log(elem.parent().html());
+//    $.each(booklists, function(i,book){
+//        console.log(this);
+//        var l =$("<li></li>").text(book.bookname);   // 以 jQuery 创建新元素
+//        $('ul').append(l);
+//    });
+//    $('ul').html('<li th:each="book:${booklists}" th:text="${book.bookname}">三体</li>');
+    //    <option value="+[[${status}]]+">[[#{'Order.Status.' + ${value}}]]
+    //  console.log($('ul').html('<li th:id="demo" th:each="book:[[${booklists}]]" th:text="${book.bookname}">三体</li>'));
+    /*]]>*/
+
+//    console.log($("#thymeleafTable").html());
+////    $(".horizon").html($("#thymeleafTable").html());
+//    $(".horizon").html($("#thymeleafTable").html());
+//    console.log($(".horizon").html());
+</script>
+</body>
+
+</html >

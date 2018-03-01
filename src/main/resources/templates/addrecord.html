@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}"/>
+    <script type="text/javascript" th:src="@{/static/layui/layui.js}" charset="UTF-8"></script>
+    <title>添加记录</title>
+</head>
+<body>
+<div th:include="fragments :: head"></div>
+<div class="content container">
+    <div class="row">
+        <div class="horizon col-md-3 col-xs-12">
+            <ul>
+                <li th:each="book:${booklist}" th:text="${book.bookid} + ' ' +  ${book.bookname}">三体</li>
+            </ul>
+            <!--使用 data-* 属性来嵌入自定义数据：-->
+            <div th:include="fragments :: page" th:attr="data-name='record'"></div>
+        </div>
+        <div style="display: inline" class="col-md-9 col-xs-12">
+            <!--第三，空值，如果action为空或不写，表示提交给当前页面。-->
+            <form action="#" th:action="@{/record/save}" method="post" th:object="${record}" method="post">
+                <div class="form-group">
+                    <label>用户ID&nbsp;&nbsp;：</label>
+                    <input type="text" autofocus="autofocus" name="userid" placeholder="请输入用户ID" required
+                           th:placeholder="${shirouser}== null ? '请输入用户ID' : ${shirouser.userid}" class="form-control" th:field="*{userid}"/>
+                    <small th:if="${#fields.hasErrors('userid')}" th:errors="*{userid}">案例</small>
+                </div>
+                <div class="form-group">
+                    <label>书本ID&nbsp;&nbsp;：</label>
+                    <input type="text" name="bookid" placeholder="请输入书本ID" required
+                           class="form-control" th:field="*{bookid}"/>
+                    <small th:if="${#fields.hasErrors('bookid')}" th:errors="*{bookid}">案例</small>
+                </div>
+                <!--<div>-->
+                <!--<label>进度(页数)：</label>-->
+                <!--<input type="text" name="bookname" placeholder="请输入阅读页数" th:field="*{bookname}"/>-->
+                <!--<small th:if="${#fields.hasErrors('bookname')}" th:errors="*{bookname}">案例</small>-->
+                <!--</div>-->
+                <div class="form-group">
+                    <label>进度(%)：</label>
+                    <input type="text" name="readpercent" placeholder="请输入阅读进度" required
+                           class="form-control" th:field="*{readpercent}"/>
+                    <small th:if="${#fields.hasErrors('readpercent')}" th:errors="*{readpercent}">案例</small>
+                </div>
+                <small>*请输入记录时间(可不填，默认当前时间)</small>
+                <div class="form-group">
+                    <label>记录时间：</label>
+                    <input type="datetime" name="recordtime" placeholder="请输入记录时间(可不填，默认当前时间)"
+                           class="form-control" th:field="*{recordtime}"/>
+                    <small th:if="${#fields.hasErrors('recordtime')}" th:errors="*{recordtime}">案例</small>
+                </div>
+                <input class="blue btn" type="reset" value="重置"/>&nbsp;&nbsp;
+                <input class="blue btn" type="submit"/>
+                <small th:text="${MSG}">案例</small>
+            </form>
+            <!--form外-->
+        </div>
+    </div>
+</div>
+<div th:include="fragments :: foot"></div>
+<script>
+    function formatSingleNum(num) {
+        return num < 10 ? "0" + num : "" + num
+    }
+
+    var d = new Date();
+    var timenow = d.getFullYear() + '-' + (d.getMonth() < 9 ? "0" : "") + (d.getMonth() + 1) + '-' + formatSingleNum(d.getDate())
+        + ' ' + formatSingleNum(d.getHours()) + ':' + formatSingleNum(d.getMinutes()) + ':' + formatSingleNum(d.getSeconds());
+    console.log(timenow);
+    $('input[name = "recordtime"]').val(timenow);
+</script>
+</body>
+</html>

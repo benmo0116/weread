@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxy.mapper.RecordMapper" >
+  <resultMap id="BaseResultMap" type="com.wxy.model.Record" >
+    <result column="recordID" property="recordid" jdbcType="INTEGER" />
+    <result column="recordTime" property="recordtime" jdbcType="TIMESTAMP" />
+    <result column="readPercent" property="readpercent" jdbcType="DOUBLE" />
+    <result column="userID" property="userid" jdbcType="INTEGER" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="bookID" property="bookid" jdbcType="INTEGER" />
+    <result column="bookName" property="bookname" jdbcType="VARCHAR" />
+    <result column="bookName2" property="bookname2" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="readPages" property="readpages" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    recordID, recordTime, readPercent, userID,nickname,bookID,bookName,bookName2,author,country
+  </sql>
+  <insert id="insert" parameterType="com.wxy.model.Record" >
+    insert into r_record (recordID, userID, bookID, readPages, readPercent, recordTime)
+    values (#{recordid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{bookid,jdbcType=INTEGER},
+     #{readpages,jdbcType=INTEGER}, #{readpercent,jdbcType=DOUBLE}, #{recordtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wxy.model.Record" >
+    insert into r_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recordid != null" >
+        recordID,
+      </if>
+      <if test="recordtime != null" >
+        recordTime,
+      </if>
+      <if test="readpages != null" >
+        readPages,
+      </if>
+      <if test="readpercent != null" >
+        readPercent,
+      </if>
+      <if test="userid != null" >
+        userID,
+      </if>
+      <if test="bookid != null" >
+        bookID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recordid != null" >
+        #{recordid,jdbcType=INTEGER},
+      </if>
+      <if test="recordtime != null" >
+        #{recordtime,jdbcType=TIMESTAMP},
+      </if>
+      0
+      <!--<if test="readpages != null" >-->
+        <!--#{readpages,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <if test="readpercent != null" >
+        #{readpercent,jdbcType=DOUBLE},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="bookid != null" >
+        #{bookid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from v_record
+    ORDER BY recordtime DESC
+  </select>
+
+</mapper>
