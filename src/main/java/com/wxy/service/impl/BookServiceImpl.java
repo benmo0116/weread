@@ -6,6 +6,7 @@ import com.wxy.model.Book;
 import com.wxy.model.BookExample;
 import com.wxy.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class BookServiceImpl implements BookService {
     @Autowired
     BookMapper bookMapper;
 
+    @Cacheable(value = "book")
     @Override
     public List<Book> findAll(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);

@@ -1,12 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="ehcache.xsd">
-    <cache name="user" eternal="false" maxEntriesLocalHeap="0"
-           timeToIdleSeconds="50"></cache>
+<!-- web-app是web.xml的根节点标签名称
+     version是版本的意思
+     xmlns是web.xml文件用到的命名空间
+     xmlns:xsi是指web.xml遵守xml规范
+     xsi:schemaLocation是指具体用到的schema资源
+
+     xmlns 属性可以在文档中定义一个或多个可供选择的命名空间。该属性可以放置在文档内任何元素的开始标签中。
+     该属性的值类似于 URL，它定义了一个命名空间，浏览器会将此命名空间用于该属性所在元素内的所有内容。
+     xsi:schemaLocation用于声明了目标名称空间的模式文档
+     -->
+<ehcache>
     <!-- eternal：true表示对象永不过期，此时会忽略timeToIdleSeconds和 timeToLiveSeconds属性，默认为false -->
     <!-- maxEntriesLocalHeap：堆内存中最大缓存对象数，0没有限制 -->
-
     <!-- timeToIdleSeconds： 设定允许对象处于空闲状态的最长时间，以秒为 单位。当对象自从最近一次被访问后，如果处于空闲状态的时间超过了
         timeToIdleSeconds属性值，这个对象就会过期，EHCache将把它从缓存中清空。 只有当eternal属性为false，该属性才有效。如果该属性值为0，则表示对象可以
         无限期地处于空闲状态 -->
+    <diskStore path="d:/ehcache/" />
+    <defaultCache
+            eternal="false"
+            maxElementsInMemory="1000"
+            overflowToDisk="true"
+            diskPersistent="false"
+            timeToIdleSeconds="0"
+            timeToLiveSeconds="3600"
+            memoryStoreEvictionPolicy="LRU" />
+    <cache name="user"
+           maxEntriesLocalHeap="1"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="book"
+           maxEntriesLocalHeap="3"
+           timeToLiveSeconds="3600">
+    </cache>
 </ehcache>

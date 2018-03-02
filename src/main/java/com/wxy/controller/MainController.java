@@ -45,7 +45,6 @@ public class MainController {
         Subject subject = SecurityUtils.getSubject();
         User principal = (User) subject.getPrincipal();
         map.put("username",principal.getNickname());
-        logger.info("==================------------------------=============");
         return "/index";
     }
 

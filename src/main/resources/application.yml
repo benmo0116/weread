@@ -45,6 +45,8 @@ spring:
         testOnReturn: false
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
+    #Spring boot默认使用的是SimpleCacheConfiguration，即使用ConcurrentMapCacheManager来实现缓存。
+    #但是要切换到其他缓存实现也很简单
     #ehcache配置
     cache:
         type: ehcache
@@ -55,9 +57,15 @@ spring:
         mode: LEGACYHTML5
         cache: false
         #开发时关闭缓存,不然没法看到实时页面
+
+#######################################################################
 mybatis:
   mapper-locations: classpath:mapping/*.xml
   type-aliases-package: com.wxy.model
+#  configLocation: classpath:config/mybatis-config.xml
+#  configuration:
+#          #指定日志框架
+#          logImpl: log4
 
 #mybatis分页插件-pagehelper
 pagehelper:
