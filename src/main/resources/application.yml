@@ -1,6 +1,8 @@
 project:
     name: weread
     author: wxy
+    #url: E:/projects/Java/mypro/weread
+    url: C:/workProject/project/Java/weread
 
 server:
   port: 8080

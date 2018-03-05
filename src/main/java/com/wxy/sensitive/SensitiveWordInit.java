@@ -1,5 +1,6 @@
 package com.wxy.sensitive;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -15,6 +16,9 @@ import java.util.*;
  */
 @Component
 public class SensitiveWordInit {
+	@Value("${project.url}")
+	private String projectUrl;
+
 	private String ENCODING = "GBK";    //字符编码
 	@SuppressWarnings("rawtypes")
 	public static HashMap sensitiveWordMap;
@@ -120,8 +124,7 @@ public class SensitiveWordInit {
 	@SuppressWarnings("resource")
 	private Set<String> readSensitiveWordFile() throws Exception{
 		Set<String> set = null;
-//		E:\projects\Java\mypro\weread\src\main\resources\static\sensitive
-		String path="E:/projects/Java/mypro/weread/src/main/resources"+"/static/sensitive/sensitive.txt";
+		String path= projectUrl+"/src/main/resources"+"/static/sensitive/sensitive.txt";
 		File file = new File(path);    //读取文件
 		InputStreamReader read = new InputStreamReader(new FileInputStream(file),ENCODING);
 		try {
