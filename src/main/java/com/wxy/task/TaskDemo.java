@@ -4,9 +4,6 @@ import com.wxy.activemq.boot.Producer;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.joda.time.DateTime;
-import org.joda.time.Hours;
-import org.joda.time.Minutes;
-import org.joda.time.Seconds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -14,13 +11,12 @@ import org.springframework.stereotype.Component;
 import javax.jms.Destination;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Month;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author wxy
  * @create 2018-03-05 14:23
  * @desc @Scheduled 在Springboot中使用 在Application添加@EnableScheduling 即可
+ * @Scheduled(cron = "0/1 * * * * ? ") 所在类不可以继承另一个类？？why?
  * <p>
  * spring的定时任务默认是单线程，多个任务执行起来时间会有问题
  **/
@@ -43,7 +39,7 @@ public class TaskDemo {
     @Autowired
     private Producer producer;
 
-    @Scheduled(cron = "0 */1 * * * ? ")   //每1分钟执行一次
+    @Scheduled(cron = "0 0 */1 * * ? ")   //每1小时执行一次
     public void productQueue() throws InterruptedException {
         Destination destination = new ActiveMQQueue("sample.queue2");
         producer.sendMessage(destination, "生产一队新消息了！ ");
@@ -51,7 +47,7 @@ public class TaskDemo {
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.println(sdf.format(DateTime.now().toDate()) + "----productQueue");
     }
-    @Scheduled(cron = "0 */2 * * * ? ")   //每2分钟执行一次
+    @Scheduled(cron = "0 0 */2 * * ? ")   //每2小时执行一次
     public void productTopic() throws InterruptedException {
         Destination destinationTopic = new ActiveMQTopic("sample.topic");
         producer.sendMessage(destinationTopic, "有新主题了！ ");
