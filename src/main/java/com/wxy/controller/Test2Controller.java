@@ -1,5 +1,6 @@
 package com.wxy.controller;
 
+import com.wxy.cache.redis.RedisServiceImpl;
 import com.wxy.sensitive.SensitivewordFilter;
 import com.wxy.utils.office2html.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.Set;
 @Controller
 @RequestMapping("/test2")
 public class Test2Controller extends BaseTestController {
+
     /**
      * 文档预览
      *
@@ -63,7 +65,7 @@ public class Test2Controller extends BaseTestController {
         return "/browse";
     }
 
-//=====================================敏感词过滤==========================================================
+    //=====================================敏感词过滤==========================================================
     @Autowired
     public SensitivewordFilter filter;
 
@@ -93,12 +95,12 @@ public class Test2Controller extends BaseTestController {
         }
         Set<String> set = wordFilter(word);
         print("待测试句子：" + word);
-        if (set != null){
+        if (set != null) {
             print("语句中包含敏感词的个数为：" + set.size() + "\n包含：" + set);
             //通过websocket发送个通知
             sendNotice("语句中包含敏感词的个数为：" + set.size() + "\n包含：" + set);
         }
     }
-//=====================================================================================
 
+    //=====================================================================================
 }

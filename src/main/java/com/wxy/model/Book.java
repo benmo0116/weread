@@ -4,26 +4,27 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
-public class Book {
+public class Book implements Serializable {
+
     private Integer bookid;
 
-    @NotEmpty(message="作者不能为空")
+    @NotEmpty(message = "作者不能为空")
     private String author;
 
-    @NotNull(message="字数不要为空，可填0")
+    @NotNull(message = "字数不要为空，可填0")
     private Long wordcount;
 
-    @NotEmpty(message="国籍不能为空")
+    @NotEmpty(message = "国籍不能为空")
     private String country;
 
-    @NotEmpty(message="书名不能为空")
+    @NotEmpty(message = "书名不能为空")
     private String bookname;
     private String bookname2;
 
-    @Size(max = 4, message="类型名不能超过四个字")
+    @Size(max = 4, message = "类型名不能超过四个字")
     private String booktype;
-
 
 
     public Integer getBookid() {
